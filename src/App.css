@@ -1,0 +1,15 @@
+/* Base styles */
+.root-app {
+    width: 100%;
+
+    /* We will support a width of the following range -> Screens with exceeding width,
+    the app will be limited to only 450px in width */
+    max-width: 450px;
+    min-width: 375px;
+
+    max-height: 800px;
+
+    background-color: #171717;
+    
+    margin: auto;
+}
