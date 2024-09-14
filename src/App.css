@@ -4,7 +4,6 @@
 
     /* We will support a width of the following range -> Screens with exceeding width,
     the app will be limited to only 450px in width */
-    max-width: 450px;
     min-width: 375px;
 
     height: 100vh;
@@ -25,13 +24,21 @@
 
 .root-app::-webkit-scrollbar {
     display: none; /* Chrome, Safari */
-  }
+}
+
+.page {
+    display: flex;
+    flex-direction: column;
+
+    max-width: inherit;
+}
 
 .content {
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin-top: 66px;
-    margin-bottom: 16px;
-    gap: 16px;
+    margin-top: 6rem;
+    margin-bottom: 2rem;
+    padding: 2rem;
+    gap: 2rem;
 }

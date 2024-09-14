@@ -4,7 +4,9 @@ import backIcon from '../../assets/back-icon.png';
 import hamburgerIcon from '../../assets/hamburger.png';
 import searchIcon from '../../assets/search-icon.png';
 
-const AppHeader = ({ isRootDirectory = true, category='Romantic Comedy' }) => {
+const AppHeader = ({
+  isRootDirectory = false, category = ''
+}) => {
 
   // States
   const [searchText, setSearchText] = useState(null);
@@ -47,7 +49,7 @@ const AppHeader = ({ isRootDirectory = true, category='Romantic Comedy' }) => {
           typeof searchText === 'string' ? (
             <input
               type={'text'}
-              placeholder={'Search Favourite Movies here'}
+              placeholder={'Search Movies'}
               id='header-search-box'
               ref={searchInputRef}
               onChange={handleSearch}
@@ -56,7 +58,7 @@ const AppHeader = ({ isRootDirectory = true, category='Romantic Comedy' }) => {
           ) : (
             <div>
               {
-                isRootDirectory ? 'Filmy : Home' : 'Romantic Comedy'
+                isRootDirectory ? 'Filmy : Home' : category
               }
             </div>
           )

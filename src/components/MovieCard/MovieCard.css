@@ -1,3 +1,5 @@
-.movie-card {
-    aspect-ratio: "2:3";
+#movie-label {
+    font-size: 2rem;
+    line-height: 2.5rem;
+    text-align: start;
 }

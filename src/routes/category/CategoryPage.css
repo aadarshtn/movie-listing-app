@@ -1,0 +1,23 @@
+#movie-card-grid {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;      /* Allow wrapping to new lines */
+    gap: 2rem;            /* Add space between items (optional) */
+    justify-content: space-around;
+}
+
+#movie-card-grid > div {
+    display: flex;
+    flex-direction: column;
+    flex: 0 1 30%;               /* Fixed width: 30% for each div */
+    max-width: 30%;
+    flex: 1 1 calc(33.333% - 2rem); /* 3 divs per row, minus the gap */
+    box-sizing: border-box;         /* Ensure padding/borders don't affect width */
+    text-align: center;
+}
+
+#movie-card-grid img {
+    width: 100%;           /* Image takes full width of the div */
+    height: auto;          /* Maintain aspect ratio (portrait) */
+    object-fit: cover;     /* Ensure image fills the container */
+  }

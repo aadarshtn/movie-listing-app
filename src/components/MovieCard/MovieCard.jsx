@@ -1,11 +1,12 @@
-import React from "react";
-import "./MovieCard.css";
+import React from 'react';
+import './MovieCard.css';
+import poster from '../../assets/poster1.jpg';
 
-const MovieCard = ({ title, poster }) => {
+const MovieCard = ({ title }) => {
   return (
-    <div className="movie-card">
+    <div id='movie-card'>
       <img src={poster} alt={title} />
-      <p>{title}</p>
+      <div id='movie-label'>{title ?? 'Dome Movie'}</div>
     </div>
   );
 };

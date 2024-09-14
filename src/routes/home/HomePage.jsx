@@ -9,18 +9,15 @@ import { useRelativeRouteNavigation } from '../../utils/routing';
 const HomePage = () => {
 
   return (
-    <div className='home-page'>
-      <AppHeader/>
+    <div className='page'>
+      <AppHeader isRootDirectory={true}/>
       <div className='content'>
         <CategoryCard label={'Comedy'} onCategoryCardClick={useRelativeRouteNavigation}/>
         <CategoryCard label={'Romantic'} onCategoryCardClick={useRelativeRouteNavigation}/>
         <CategoryCard label={'Thriller'} onCategoryCardClick={useRelativeRouteNavigation}/>
         <CategoryCard label={'Action'} onCategoryCardClick={useRelativeRouteNavigation}/>
         <CategoryCard label={'Drama'} onCategoryCardClick={useRelativeRouteNavigation}/>
-        <CategoryCard label={'Classic Lengthy'} onCategoryCardClick={useRelativeRouteNavigation}/>
-        <CategoryCard label={'Comedy'} onCategoryCardClick={useRelativeRouteNavigation}/>
-        <CategoryCard label={'Comedy'} onCategoryCardClick={useRelativeRouteNavigation}/>
-        <CategoryCard label={'Comedy'} onCategoryCardClick={useRelativeRouteNavigation}/>
+        <CategoryCard label={'Classic Comedy'} onCategoryCardClick={useRelativeRouteNavigation}/>
       </div>
     </div>
   )

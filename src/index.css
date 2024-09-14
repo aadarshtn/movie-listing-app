@@ -1,4 +1,30 @@
+html {
+  font-size: 16px; /* 1 rem = 16px */
+}
+
+/* For screens smaller than 768px (tablets and smaller devices) */
+@media (max-width: 768px) {
+  html {
+    font-size: 14px; /* 1 rem = 14px */
+  }
+}
+
+/* For screens smaller than 480px (mobile phones) */
+@media (max-width: 480px) {
+  html {
+    font-size: 12px; /* 1 rem = 12px */
+  }
+}
+
+/* For screens smaller than 320px (very small devices) */
+@media (max-width: 380px) {
+  html {
+    font-size: 10px; /* 1 rem = 10px */
+  }
+}
+
 body {
+  font-size: 2rem; /* This will adjust based on the screen size */
   margin: 0;
   font-family: 'Titillium Web', sans-serif;
   color: #FFFFFF;
@@ -7,6 +33,14 @@ body {
   -moz-osx-font-smoothing: grayscale;
 
   overflow: hidden;
+}
+
+h1 {
+  font-size: 2rem; /* This will be 32px on large screens, 24px on smaller screens, etc. */
+}
+
+p {
+  font-size: 3rem; /* This will adjust accordingly */
 }
 
 code {
