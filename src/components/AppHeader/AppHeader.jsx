@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react'
 import './AppHeader.css';
 import backIcon from '../../assets/back-icon.png';
-import hamburgerIcon from '../../assets/hamburger.png';
+import { useGoBack } from '../../utils/routing';
 import searchIcon from '../../assets/search-icon.png';
 
 const AppHeader = ({
@@ -13,6 +13,7 @@ const AppHeader = ({
 
   // DOM Refs
   const searchInputRef = useRef(null);
+  const goBack = useGoBack();
 
   // Helper Funtions
   const handleSearchIconClick = () => {
@@ -31,6 +32,12 @@ const AppHeader = ({
     if (!searchText) setSearchText(null);
   }
 
+  const handleActionButtonClick = () => {
+    if (!isRootDirectory) {
+      goBack();
+    }
+  }
+
   // Side Effects
   useEffect(() => {
     if (typeof searchText === 'string') {
@@ -42,8 +49,9 @@ const AppHeader = ({
     <div id='header-container'>
       <div id='header-left-wrap'>
         <img
-          src={isRootDirectory ? hamburgerIcon : backIcon}
-          alt={'back-icon'} id='action-button'
+          src={isRootDirectory ? `${process.env.PUBLIC_URL}/logo.jpeg` : backIcon}
+          alt={'action-icon'} id='action-button'
+          onClick={handleActionButtonClick}
         />
         {
           typeof searchText === 'string' ? (
@@ -58,7 +66,7 @@ const AppHeader = ({
           ) : (
             <div>
               {
-                isRootDirectory ? 'Filmy : Home' : category
+                isRootDirectory ? 'Diagnal : Home' : category
               }
             </div>
           )

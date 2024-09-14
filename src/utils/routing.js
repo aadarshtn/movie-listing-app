@@ -20,4 +20,17 @@ const useRelativeRouteNavigation = (relativePath, options = {}) => {
   return handleNavigation;
 };
 
-export { useRelativeRouteNavigation };
+// Utility function to create a goBack function
+const useGoBack = () => {
+  const navigate = useNavigate();
+
+  return () => {
+    if (window.history.length > 1) {
+      navigate(-1);
+    } else {
+      navigate('/'); // Redirect to the home page if there's no history
+    }
+  };
+};
+
+export { useRelativeRouteNavigation, useGoBack };
