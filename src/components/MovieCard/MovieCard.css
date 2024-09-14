@@ -2,4 +2,7 @@
     font-size: 2rem;
     line-height: 2.5rem;
     text-align: start;
+    white-space: nowrap;
+    overflow: hidden;  /* Optional: hides overflow text */
+    text-overflow: ellipsis;
 }

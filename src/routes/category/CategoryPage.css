@@ -10,7 +10,8 @@
     display: flex;
     flex-direction: column;
     flex: 0 1 30%;               /* Fixed width: 30% for each div */
-    max-width: 30%;
+    max-width: 28%;
+    min-width: 28%;
     flex: 1 1 calc(33.333% - 2rem); /* 3 divs per row, minus the gap */
     box-sizing: border-box;         /* Ensure padding/borders don't affect width */
     text-align: center;
@@ -19,5 +20,6 @@
 #movie-card-grid img {
     width: 100%;           /* Image takes full width of the div */
     height: auto;          /* Maintain aspect ratio (portrait) */
+    aspect-ratio: 2 / 3; /* Aspect ratio (2:3) */
     object-fit: cover;     /* Ensure image fills the container */
   }

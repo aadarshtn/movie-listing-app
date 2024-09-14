@@ -1,14 +1,12 @@
-import React, { createContext, useState, useContext } from 'react';
+import React, { createContext, useState, useContext, useRef } from 'react';
 
 // Create the context
 const GlobalContext = createContext();
+const RefContext = createContext(null);
 
 // Create a provider component
 export const GlobalContextProvider = ({ children }) => {
-  const [state, setState] = useState({
-    user: null,
-    theme: 'light', // Example state
-  });
+  const [state, setState] = useState(null);
 
   return (
     <GlobalContext.Provider value={{ state, setState }}>
@@ -17,7 +15,21 @@ export const GlobalContextProvider = ({ children }) => {
   );
 };
 
-// Custom hook to use the Context
+export const RefProvider = ({ children }) => {
+  // Create a ref
+  const rootAppRef = useRef(null);
+  const currentPageRef = useRef(null);
+  
+  return (
+    <RefContext.Provider value={{rootAppRef, currentPageRef}}>
+      {children}
+    </RefContext.Provider>
+  );
+};
+
+// Custom hooks to use the Contexts
+export const useRefContext = () => useContext(RefContext);
+
 export const useGlobalContext = () => {
   const context = useContext(GlobalContext);
   if (context === undefined) {

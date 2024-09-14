@@ -39,6 +39,9 @@
     width: 100%;
     height: fit-content;
     min-height: 5rem;
+    white-space: nowrap;
+    overflow: hidden;  /* Optional: hides overflow text */
+    text-overflow: ellipsis;
 }
 
 #header-right-wrap {

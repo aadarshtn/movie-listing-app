@@ -1,12 +1,13 @@
 import React from 'react';
 import './MovieCard.css';
-import poster from '../../assets/poster1.jpg';
+import fallbackPoster from '../../assets/missing-poster.png';
 
-const MovieCard = ({ title }) => {
+const MovieCard = ({ title, poster }) => {
+  console.log({ poster });
   return (
     <div id='movie-card'>
-      <img src={poster} alt={title} />
-      <div id='movie-label'>{title ?? 'Dome Movie'}</div>
+      <img src={poster ?? fallbackPoster} alt={title} />
+      <div id='movie-label'>{title}</div>
     </div>
   );
 };

@@ -10,14 +10,14 @@ html {
 }
 
 /* For screens smaller than 480px (mobile phones) */
-@media (max-width: 480px) {
+@media (max-width: 492px) {
   html {
     font-size: 12px; /* 1 rem = 12px */
   }
 }
 
 /* For screens smaller than 320px (very small devices) */
-@media (max-width: 380px) {
+@media (max-width: 392px) {
   html {
     font-size: 10px; /* 1 rem = 10px */
   }

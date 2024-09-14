@@ -11,7 +11,7 @@ export const fetchImageInBatch = async (imageUrls) => {
             const response = await fetchFromNetwork(imageEndPoint + url, "GET");
             const imageBlob = await response.blob();
             const imageUrl = URL.createObjectURL(imageBlob);
-            return imageUrl;
+            return { [url]: imageUrl };
         } catch (error) {
             console.log(`Following error occured while fetching ${url}: `, error);
         }
