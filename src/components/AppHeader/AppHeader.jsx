@@ -56,7 +56,7 @@ const AppHeader = ({ isRootDirectory = true, category='Romantic Comedy' }) => {
           ) : (
             <div>
               {
-                isRootDirectory ? 'Diagnal : Home' : 'Romantic Comedy'
+                isRootDirectory ? 'Filmy : Home' : 'Romantic Comedy'
               }
             </div>
           )

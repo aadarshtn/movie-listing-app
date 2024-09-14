@@ -1,0 +1,19 @@
+#category-card-container {
+    width: 80vw;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#category-background {
+    width: 100%;
+    height: 100%;
+}
+
+#category-label {
+    position: absolute;
+    font-size: 44px;
+    display: flex;
+    text-align: center;
+}

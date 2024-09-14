@@ -7,9 +7,31 @@
     max-width: 450px;
     min-width: 375px;
 
-    max-height: 800px;
+    height: 100vh;
 
     background-color: #171717;
     
     margin: auto;
+
+    overflow: hidden;
+    overflow-y: scroll;
+
+    /* For hiding scrollbars in Firefox */
+    scrollbar-width: none;
+
+    /* For hiding scrollbars in Edge and IE */
+    -ms-overflow-style: none;
+}
+
+.root-app::-webkit-scrollbar {
+    display: none; /* Chrome, Safari */
+  }
+
+.content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 66px;
+    margin-bottom: 16px;
+    gap: 16px;
 }
