@@ -8,7 +8,7 @@
     width: 100%;
     max-width: inherit;
     height: fit-content;
-    padding: 2rem 2rem 0 2rem;
+    padding: 1rem 1.5rem 0 1.5rem;
     font-size: 3rem;
     background: linear-gradient(to bottom, rgba(23, 23, 23, 1) 85%, rgba(23, 23, 23, 0) 100%);
     z-index: 1;
@@ -58,4 +58,39 @@
     outline: none;
     color: #FFFFFF;
     font-size: 2rem;
+}
+
+#search-warning-tooltip {
+    position: absolute;
+    top: 85%;
+    /* Places the tooltip directly below the input */
+    left: 30%;
+    transform: translateY(5px);
+    /* Add a small gap between the input and tooltip */
+    background-color: #333;
+    color: white;
+    padding: 5px 10px;
+    border-radius: 4px;
+    font-size: 14px;
+    white-space: nowrap;
+    /* Prevents the tooltip from wrapping */
+    z-index: 10;
+    opacity: 0.8;
+    pointer-events: none;
+    /* Tooltip won't interfere with mouse events */
+}
+
+#search-warning-tooltip::before {
+    content: '';
+    position: absolute;
+    top: -10px; /* Position it just above the tooltip */
+    left: 50%; /* Centers the arrow */
+    transform: translateX(-50%);
+    border-width: 5px;
+    border-style: solid;
+    border-color: transparent transparent #333 transparent; /* The bottom triangle points down */
+  }
+
+.input-wrapper {
+    display: flex;
 }

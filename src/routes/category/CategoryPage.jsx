@@ -9,6 +9,8 @@ import { useGlobalContext } from '../../data/context';
 import { useInfiniteScroll } from '../../utils/scroll';
 import { useRefContext } from '../../data/context';
 import { fetchImageInBatch } from '../../api/image.api';
+import EndOfPage from '../../components/EndOfPage';
+import NoMoviesFound from '../../components/NoMoviesFound';
 
 const PAGINATION_COUNT = 20;
 
@@ -145,6 +147,12 @@ const CategoryPage = () => {
           })
         }
       </div>
+      {
+        !localSearchText && (lastPageNo > 0) && (pageNo >= lastPageNo) ? <EndOfPage/> : null
+      }
+      {
+        (localSearchText && filteredMovies?.length === 0) ? <NoMoviesFound/> : null
+      }
     </div>
   )
 }

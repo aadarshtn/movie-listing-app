@@ -12,6 +12,9 @@ const AppHeader = ({
   const searchInputRef = useRef(null);
   const goBack = useGoBack();
 
+  // Local States
+  const [showCharacterLimitTooltip, setShowCharacterLimitTooltip] = useState(false);
+
   // Helper Funtions
   const handleSearchIconClick = () => {
     if (!searchText) {
@@ -22,6 +25,13 @@ const AppHeader = ({
   }
 
   const handleSearch = (e) => {
+    const value = e?.target?.value;
+
+    console.log({ value, lengthOfValue: value.length });
+
+    if (value.length > 15) setShowCharacterLimitTooltip(true)
+    else setShowCharacterLimitTooltip(false);
+
     updateSearchText(e?.target?.value)
   }
 
@@ -52,14 +62,21 @@ const AppHeader = ({
         />
         {
           typeof searchText === 'string' ? (
-            <input
-              type={'text'}
-              placeholder={'Search Movies'}
-              id='header-search-box'
-              ref={searchInputRef}
-              onChange={handleSearch}
-              onBlur={handleSearchInputBlur}
-            />
+            <div className='input-wrapper'>
+              <input
+                type={'text'}
+                placeholder={'Search Movies'}
+                id='header-search-box'
+                ref={searchInputRef}
+                onChange={handleSearch}
+                onBlur={handleSearchInputBlur}
+              />
+              {showCharacterLimitTooltip && (
+                <div id='search-warning-tooltip'>
+                  Try a smaller keyword!
+                </div>
+              )}
+            </div>
           ) : (
             <div>
               {

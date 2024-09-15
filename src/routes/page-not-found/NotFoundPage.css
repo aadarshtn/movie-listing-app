@@ -1,0 +1,59 @@
+/* Centering the content and styling for the 404 page */
+.not-found-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    background-color: #141414; /* Dark background */
+    color: #fff; /* White text */
+    text-align: center;
+  }
+  
+  .not-found-title {
+    font-size: 8rem;
+    margin: 0;
+    font-weight: bold;
+    color: yellow; /* Netflix-like red */
+  }
+  
+  .not-found-message {
+    font-size: 1.5rem;
+    margin: 20px 0;
+    max-width: 600px;
+  }
+  
+  .not-found-actions {
+    margin-top: 30px;
+  }
+  
+  .not-found-button {
+    padding: 10px 30px;
+    background-color: yellow;
+    color: #000;
+    font-weight: 700;
+    border-radius: 5px;
+    text-decoration: none;
+    font-size: 1.4rem;
+    transition: background-color 0.3s;
+  }
+  
+  .not-found-button:hover {
+    background-color: yellow;
+  }
+  
+  /* Responsive adjustments */
+  @media (max-width: 768px) {
+    .not-found-title {
+      font-size: 6rem;
+    }
+  
+    .not-found-message {
+      font-size: 1.2rem;
+    }
+  
+    .not-found-button {
+      font-size: 1.2rem;
+    }
+  }
+  

@@ -6,3 +6,17 @@
     overflow: hidden;  /* Optional: hides overflow text */
     text-overflow: ellipsis;
 }
+
+#movie-title-tooltip {
+    position: absolute;
+    left: 50%;
+    top: 60%;
+    transform: translateX(-50%);
+    background-color: #333;
+    color: #fff;
+    padding: 5px;
+    border-radius: 5px;
+    white-space: nowrap;
+    font-size: 1.5rem;
+    z-index: 10;
+}
