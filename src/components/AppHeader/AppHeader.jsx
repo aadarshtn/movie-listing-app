@@ -5,11 +5,8 @@ import { useGoBack } from '../../utils/routing';
 import searchIcon from '../../assets/search-icon.png';
 
 const AppHeader = ({
-  isRootDirectory = false, category = ''
+  isRootDirectory = false, category = '', searchText, updateSearchText
 }) => {
-
-  // States
-  const [searchText, setSearchText] = useState(null);
 
   // DOM Refs
   const searchInputRef = useRef(null);
@@ -18,18 +15,18 @@ const AppHeader = ({
   // Helper Funtions
   const handleSearchIconClick = () => {
     if (!searchText) {
-      setSearchText("");
+      updateSearchText("");
     } else {
       if (searchInputRef.current) searchInputRef.current.focus()
     }
   }
 
   const handleSearch = (e) => {
-    setSearchText(e?.target?.value);
+    updateSearchText(e?.target?.value)
   }
 
   const handleSearchInputBlur = () => {
-    if (!searchText) setSearchText(null);
+    if (!searchText) updateSearchText(null)
   }
 
   const handleActionButtonClick = () => {
@@ -43,7 +40,7 @@ const AppHeader = ({
     if (typeof searchText === 'string') {
       if (searchInputRef.current) searchInputRef.current.focus()
     }
-  }, [searchText])
+  }, [searchText]);
 
   return (
     <div id='header-container'>
@@ -73,13 +70,17 @@ const AppHeader = ({
         }
         
       </div>
-      <div id='header-right-wrap'>
-        <img
-          src={searchIcon}
-          alt={'search-icon'} id='search-button'
-          onClick={handleSearchIconClick}
-        /> 
-      </div>
+      {
+        !isRootDirectory ? (
+          <div id='header-right-wrap'>
+            <img
+              src={searchIcon}
+              alt={'search-icon'} id='search-button'
+              onClick={handleSearchIconClick}
+            />
+          </div>
+        ) : null
+      }
     </div>
   )
 }

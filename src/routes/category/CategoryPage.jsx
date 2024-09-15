@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useMemo } from 'react';
 import { useParams } from 'react-router-dom';
 import AppHeader from '../../components/AppHeader';
 import MovieCard from '../../components/MovieCard';
@@ -15,15 +15,19 @@ const PAGINATION_COUNT = 20;
 const CategoryPage = () => {
 
   const { category } = useParams();
-  const { state, setState } = useGlobalContext();
+  const { state = {}, setState } = useGlobalContext();
 
-  const { movies } = state ?? {};
+  const movies = state[`${category}-movies`];
+  const filteredMovies = state['filteredMovies'];
+  const categoryPagesFetched = state[`${category}-pages-fetched`];
+  const categoryLastPage = state[`${category}-last-page`];
 
   const { rootAppRef, currentPageRef } = useRefContext();
 
   // Local States
-  const [pageNo, setPageNo] = useState(0);
-  const [lastPageNo, setLastPageNo] = useState(-1);
+  const [pageNo, setPageNo] = useState(categoryPagesFetched ?? 0);
+  const [lastPageNo, setLastPageNo] = useState(categoryLastPage ?? -1);
+  const [localSearchText, setLocalSearchText] = useState(null);
 
   // Local Refs
   const networkStatusRef = useRef('IDLE');
@@ -32,7 +36,7 @@ const CategoryPage = () => {
 
   // Helper Functions
   const fetchMoviesAsync = async () => {
-    if (networkStatusRef.current === 'BUSY') return;
+    if (networkStatusRef.current === 'BUSY' || ((lastPageNo > 0) && (pageNo >= lastPageNo))) return;
     try {
       networkStatusRef.current = 'BUSY';
       const response = await fetchMovieData(pageNo + 1);
@@ -64,24 +68,30 @@ const CategoryPage = () => {
         }
       })
       const movies = [
-        ...state?.['movies'] ?? [],
+        ...state?.[`${category}-movies`] ?? [],
         ...moviesArrayWithPosterLink ?? []
       ]
 
       setState({
         ...state,
-        movies
+        [`${category}-movies`]: movies,
+        [`${category}-pages-fetched`]: pageNo + 1,
+        [`${category}-last-page`]: lastPageNo
       });
       setPageNo(pageNo + 1);
       setLastPageNo(totalPageCount);
     } catch(error) {
-      console.log("Encountered follwoing error while fetching movies: ", error);
+      console.log(`Encountered follwoing error while fetching ${category} movies: `, error);
     }
   };
 
   const loadMoreMovies = () => {
     if (pageNo <= lastPageNo && networkStatusRef.current === 'IDLE') fetchMoviesAsync();
   };
+
+  const updateSearchText = (val) => {
+    setLocalSearchText(val)
+  }
 
   // Side Effects
   // 1. Fetching the movies data for the first time
@@ -95,18 +105,38 @@ const CategoryPage = () => {
     if (movies?.length === (pageNo * PAGINATION_COUNT)) {
       networkStatusRef.current = 'IDLE';
     }
-  }, [movies, pageNo])
+  }, [movies, pageNo]);
+
+  // 3. This side effect will handle any searchText change and update the render
+  useEffect(() => {
+    if (localSearchText) {
+      const filteredMovies = movies?.filter(movie => movie.name.toLowerCase().includes(localSearchText.toLowerCase()));
+      setState({
+        ...state,
+        searchText: localSearchText,
+        filteredMovies
+      });
+    } else {
+      setState({
+        ...state,
+        searchText: null,
+        filteredMovies: null
+      })
+    }
+  }, [localSearchText]);
 
   // Custom Hooks
   // 1. This hook will initiate the load more when the scroll reaches 50% of the page
   useInfiniteScroll({ rootAppRef, currentPageRef, loadMore: loadMoreMovies });
 
+  const memoizedAppHeader = useMemo(() => <AppHeader category={capitalizedCategory} searchText={localSearchText} updateSearchText={updateSearchText}/>, [localSearchText])
+
   return (
     <div className='page' ref={currentPageRef}>
-      <AppHeader category={capitalizedCategory}/>
+      {memoizedAppHeader}
       <div className='content' id='movie-card-grid'>
         {
-          movies?.map((eachMovie) => {
+          (filteredMovies ?? movies)?.map((eachMovie) => {
             const id = eachMovie['id'];
             const movieTitle = eachMovie['name'];
             const moviePosterLink = eachMovie['posterLink'];

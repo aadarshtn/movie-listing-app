@@ -6,7 +6,7 @@ const RefContext = createContext(null);
 
 // Create a provider component
 export const GlobalContextProvider = ({ children }) => {
-  const [state, setState] = useState(null);
+  const [state, setState] = useState({ searchText: null });
 
   return (
     <GlobalContext.Provider value={{ state, setState }}>
