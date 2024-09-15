@@ -10,6 +10,7 @@ const CategoryCard = ({ label, onCategoryCardClick }) => {
         <div id={'category-card-container'} name={'label'} onClick={navigateToCategoryHomePage}>
             <img
                 src={categoryCardBackground}
+                alt={'category-card'}
                 id={'category-background'}
             />
             <div id={'category-label'}>

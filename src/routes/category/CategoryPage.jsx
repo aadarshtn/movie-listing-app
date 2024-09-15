@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useParams } from 'react-router-dom';
 import AppHeader from '../../components/AppHeader';
 import MovieCard from '../../components/MovieCard';
@@ -18,27 +18,24 @@ const CategoryPage = () => {
   const { state, setState } = useGlobalContext();
 
   const { movies } = state ?? {};
-  // console.log({ movies });
 
   const { rootAppRef, currentPageRef } = useRefContext();
 
   // Local States
-  const [pageNo, setPageNo] = useState(1);
+  const [pageNo, setPageNo] = useState(0);
   const [lastPageNo, setLastPageNo] = useState(-1);
-  const [networkStatus, setNetworkStatus] = useState('IDLE');
+
+  // Local Refs
+  const networkStatusRef = useRef('IDLE');
 
   const capitalizedCategory = capitalizeWords(category.replace(/-/g, ' '));
 
-  // Side Effects
-  useEffect(() => {
-    fetchMoviesAsync();
-  }, []);
-
   // Helper Functions
   const fetchMoviesAsync = async () => {
+    if (networkStatusRef.current === 'BUSY') return;
     try {
-      setNetworkStatus('BUSY');
-      const response = await fetchMovieData(pageNo);
+      networkStatusRef.current = 'BUSY';
+      const response = await fetchMovieData(pageNo + 1);
       
       // Retrieve poster links for all the movies fetched using the poster-image property inside each movie
       const moviePosterArray = response?.['page']?.['content-items']?.['content']?.map(eachMovie => eachMovie['poster-image']);
@@ -77,17 +74,31 @@ const CategoryPage = () => {
       });
       setPageNo(pageNo + 1);
       setLastPageNo(totalPageCount);
-      setNetworkStatus('IDLE');
     } catch(error) {
       console.log("Encountered follwoing error while fetching movies: ", error);
     }
   };
 
   const loadMoreMovies = () => {
-    if (pageNo <= lastPageNo && networkStatus === 'IDLE') fetchMoviesAsync();
+    if (pageNo <= lastPageNo && networkStatusRef.current === 'IDLE') fetchMoviesAsync();
   };
 
-  // This hook will initiate the load more when the scroll reaches 50% of the page
+  // Side Effects
+  // 1. Fetching the movies data for the first time
+  useEffect(() => {
+    fetchMoviesAsync();
+  }, []);
+
+  // 2. This side effect will make sure that when the subsequent movieData API calls or 
+  // state update for the same is asyncronously being performed, No repeated API calls will be triggered
+  useEffect(() => {
+    if (movies?.length === (pageNo * PAGINATION_COUNT)) {
+      networkStatusRef.current = 'IDLE';
+    }
+  }, [movies, pageNo])
+
+  // Custom Hooks
+  // 1. This hook will initiate the load more when the scroll reaches 50% of the page
   useInfiniteScroll({ rootAppRef, currentPageRef, loadMore: loadMoreMovies });
 
   return (
@@ -99,8 +110,6 @@ const CategoryPage = () => {
             const id = eachMovie['id'];
             const movieTitle = eachMovie['name'];
             const moviePosterLink = eachMovie['posterLink'];
-
-            // console.log({link: eachMovie.posterLink});
             
             return <MovieCard title={movieTitle} poster={moviePosterLink} key={id}/>
           })

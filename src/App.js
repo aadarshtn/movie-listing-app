@@ -1,5 +1,3 @@
-import { useRef } from 'react';
-
 // Internal Imports
 import './App.css';
 import { useRefContext } from './data/context';

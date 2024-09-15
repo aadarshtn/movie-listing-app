@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 
 // Helper function to handle scroll and pagination
-const useInfiniteScroll = ({ rootAppRef, currentPageRef, loadMore, threshold = 0.2 }) => {
+const useInfiniteScroll = ({ rootAppRef, currentPageRef, loadMore, threshold = 0.1 }) => {
     const { current: viewPortElement } = rootAppRef;
     const { current: pageElement } = currentPageRef;
     useEffect(() => {
@@ -18,24 +18,13 @@ const useInfiniteScroll = ({ rootAppRef, currentPageRef, loadMore, threshold = 0
             }
         };
 
-        // Debounce function to limit the rate of function calls
-        const debounce = (func, wait) => {
-            let timeout;
-            return (...args) => {
-                clearTimeout(timeout);
-                timeout = setTimeout(() => func.apply(this, args), wait);
-            };
-        };
-
-        // Attach the scroll event listener with debounce
-        const debouncedHandleScroll = debounce(handleScroll, 50);
-        viewPortElement.addEventListener('scroll', debouncedHandleScroll);
+        viewPortElement.addEventListener('scroll', handleScroll);
 
         // Cleanup event listener on component unmount
         return () => {
-            viewPortElement.removeEventListener('scroll', debouncedHandleScroll);
+            viewPortElement.removeEventListener('scroll', handleScroll);
         };
-    }, [loadMore, threshold]);
+    }, [pageElement, viewPortElement, loadMore, threshold]);
 };
 
 export { useInfiniteScroll };
