@@ -107,8 +107,6 @@ const CategoryPage = () => {
     }
   }, []);
 
-  console.log({ movies, filteredMovies });
-
   // 2. This side effect will make sure that when the subsequent movieData API calls or 
   // state update for the same is asyncronously being performed, No repeated API calls will be triggered
   useEffect(() => {

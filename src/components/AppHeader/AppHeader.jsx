@@ -27,8 +27,6 @@ const AppHeader = ({
   const handleSearch = (e) => {
     const value = e?.target?.value;
 
-    console.log({ value, lengthOfValue: value.length });
-
     if (value.length > 15) setShowCharacterLimitTooltip(true)
     else setShowCharacterLimitTooltip(false);
 
