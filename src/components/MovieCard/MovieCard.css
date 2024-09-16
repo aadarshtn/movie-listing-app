@@ -1,5 +1,6 @@
 #movie-label {
-    font-size: 2rem;
+    font-size: 1.3rem;
+    font-weight: normal;
     line-height: 2.5rem;
     text-align: start;
     white-space: nowrap;
